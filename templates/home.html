@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Crime Map</title>
+    </head>
+    <body>
+        <h1>Crimes record</h1>
+        <form action="/add" method="POST">
+            <input type="text" name="userinput">
+            <input type="submit" value="submit">
+        </form>
 
-</body>
+        <a href="/clear">Clear</a>
+        {% for userinput in data%}
+            <p>{{userinput}}</p>
+        {% endfor%}
+    </body>
 </html>
