@@ -24,9 +24,9 @@ class DBHelper:
         connection = self.connect()
         try:
             query = "INSERT INTO crimes (description) " \
-                    "VALUES('{}');".format(data)
+                    "VALUES(%s);"
             with connection.cursor() as cursor:
-                cursor.execute(query)
+                cursor.execute(query, data)
                 connection.commit()
         finally:
             connection.close()
