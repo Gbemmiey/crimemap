@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" type="text/css"
+          href="{{url_for('static', filename='home.css')}}">
+
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js">
     </script>
@@ -35,8 +38,43 @@
 
   </head>
     <body onload="initialize()">
+      <h1>Crime Map</h1>
+      <p>A map of recent criminal activity in the Grahamstown area.</p>
 
-    <div id="map-canvas" style="width:80%;
-      height:500px;"></div>
+      <div class="container">
+
+        <div id="map-canvas" style="width:80%;
+            height:500px;">
+        </div>
+
+        <div id="newCrimeForm">
+            <h3>Submit new crime</h3>
+            <form action="/submit_crime" method="post">
+
+              <label for="category"> Category</label>
+              <select name="category" id="category">
+                <option value="mugging">Mugging</option>
+                <option value="breaking">Breaking</option>
+                <option value="murder">Murder</option>
+              </select>
+
+              <label for="date">Date</label>
+              <input name="date" id="date" type="date">
+
+              <label for="latitude">Latitude</label>
+              <input name="latitude" id="latitude" type="text">
+
+              <label for="date">Longitude</label>
+              <input name="longitude" id="longitude" type="text">
+
+              <label for="description">Description</label>
+              <textarea name="description" id="description"
+                        placeholder="Brief but concise"></textarea>
+
+              <input type="submit" value="Submit">
+            </form>
+        </div>
+
+      </div>
     </body>
 </html>
