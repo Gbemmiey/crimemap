@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Crime Map</title>
-    </head>
-    <body>
-        <h1>Crimes record</h1>
-        <form action="/add" method="POST">
-            <input type="text" name="userinput">
-            <input type="submit" value="submit">
-        </form>
+  <head>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js">
+    </script>
 
-        <a href="/clear">Clear</a>
-        {% for userinput in data%}
-            <p>{{userinput}}</p>
-        {% endfor%}
+    <script type="text/javascript">
+        var map;
+        function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(-33.30578381949298, 26.523442268371582),
+          zoom: 15
+        };
+        map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+        google.maps.event.addListener(map, 'click',
+        function(event){
+            placeMarker(event.latLng);
+        });
+      }
+
+      function placeMarker(location){
+            var marker =  new google.maps.Marker({
+                position: location,
+                map: map
+            });
+      }
+     </script>
+
+  </head>
+    <body onload="initialize()">
+    <div id="map-canvas" style="width:80%;
+      height:500px;"></div>
     </body>
 </html>
