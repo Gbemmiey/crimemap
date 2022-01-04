@@ -1,11 +1,27 @@
 body{
-    width: 80%;
     background-color: cornsilk;
     color: blue;
     text-align: center;
+    font-family: sans-serif;
+}
+
+#map-canvas{
+    border-style: groove;
+    border-radius: 5%;
+    border-color: white;
 }
 
 .container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+#newCrimeForm{
+    border-style: groove;
+    border-radius: 5%;
+    border-color: white;
+}
+
+input, select, textarea{
+    display: block;
 }

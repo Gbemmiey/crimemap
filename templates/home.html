@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:margin="http://www.w3.org/1999/xhtml">
   <head>
     <link rel="stylesheet" type="text/css"
           href="{{url_for('static', filename='home.css')}}">
@@ -44,11 +44,11 @@
       <div class="container">
 
         <div id="map-canvas" style="width:80%;
-            height:500px;">
+            height:400px; text-align: center">
         </div>
 
         <div id="newCrimeForm">
-            <h3>Submit new crime</h3>
+            <h3>Add a new crime</h3>
             <form action="/submit_crime" method="post">
 
               <label for="category"> Category</label>
