@@ -23,10 +23,10 @@ class DBHelper:
     def add_input(self, data):
         connection = self.connect()
         try:
-            query = "INSERT INTO crimes (description) " \
-                    "VALUES(%s);"
+            query = "INSERT INTO crimes (category, date, description, latitude, longitude) " \
+                    "VALUES(%s, %s, %s, %s, %s);"
             with connection.cursor() as cursor:
-                cursor.execute(query, data)
+                cursor.execute(query, (data["category"], data["date"], data["description"], data["latitude"], data["longitude"]))
                 connection.commit()
         finally:
             connection.close()

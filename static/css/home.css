@@ -27,4 +27,5 @@ input[type="submit"]:hover{
 #newCrimeForm{
     float: right;
     width: 25%;
+    margin-right: 2%;
 }
