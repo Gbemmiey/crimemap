@@ -19,6 +19,8 @@ input[type="submit"]:hover{
 
 #map-canvas{
     float: left;
+    border: 1px solid lightsteelblue;
+    height: 400px;
     width: 70%;
 }
 

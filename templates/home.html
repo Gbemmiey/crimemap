@@ -2,7 +2,9 @@
 <html lang="en" xmlns:margin="http://www.w3.org/1999/xhtml">
   <head>
     <link rel="stylesheet" type="text/css"
-          href="{{url_for('static', filename='home.css')}}">
+          href="{{url_for('static', filename='css/home.css')}}">
+
+    <title>Crime Map</title>
 
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js">
@@ -33,18 +35,18 @@
                 map: map
             });
           }
+          document.getElementById('latitude').value = location.lat();
+          document.getElementById('longitude').value = location.lng();
       }
      </script>
 
   </head>
     <body onload="initialize()">
-      <h1>Crime Map</h1>
       <p>A map of recent criminal activity in the Grahamstown area.</p>
 
       <div class="container">
 
-        <div id="map-canvas" style="height:400px;
-        text-align: center">
+        <div id="map-canvas">
         </div>
 
         <div id="newCrimeForm">
