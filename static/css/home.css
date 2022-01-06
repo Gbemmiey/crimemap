@@ -1,0 +1,31 @@
+body{
+    background: cornsilk;
+    font-family: sans-serif;
+}
+
+input, select, textarea{
+    display: block;
+    color: grey;
+    border: 1px solid lightsteelblue;
+    line-height: 15px;
+    margin: 2px 6px 16px 0px;
+    width: 100%;
+    box-shadow: 1px 1px 1px #4C6E91;
+}
+
+input[type="submit"]:hover{
+    background: cornsilk;
+}
+
+#map-canvas{
+    float: left;
+    border: 1px solid lightsteelblue;
+    height: 400px;
+    width: 70%;
+}
+
+#newCrimeForm{
+    float: right;
+    width: 25%;
+    margin-right: 2%;
+}

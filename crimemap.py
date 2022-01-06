@@ -1,6 +1,7 @@
 from dbhelper import DBHelper
 from flask import Flask
 from flask import render_template, request
+from json import dumps
 
 app = Flask(__name__)
 DB = DBHelper()
@@ -9,18 +10,18 @@ DB = DBHelper()
 @app.route('/')
 def home():
     try:
-        data = DB.get_all_inputs()
+        crimes = DB.get_all_inputs()
+        crimes = dumps(crimes, indent=4, sort_keys=True, default=str)
     except Exception as e:
         print(e)
-        data = None
-    return render_template("home.html", data=data)
+    return render_template("home.html", crimes=crimes)
 
 
-@app.route("/add", methods=["POST"])
+@app.route("/submit_crime", methods=["POST"])
 def add():
+    crime_details = get_crime_details()
     try:
-        data = request.form.get("userinput")
-        DB.add_input(data)
+        DB.add_input(crime_details)
     except Exception as e:
         print(e)
     return home()
@@ -33,6 +34,20 @@ def clear():
     except Exception as e:
         print(e)
     return home()
+
+
+def get_crime_details():
+    category = request.form.get("category")
+    date = request.form.get("date")
+    latitude = float(request.form.get("latitude"))
+    longitude = float(request.form.get("longitude"))
+    description = request.form.get("description")
+    crime_details = {"category": category,
+                     "date": date,
+                     "latitude": latitude,
+                     "longitude": longitude,
+                     "description": description}
+    return crime_details
 
 
 if __name__ == "__main__":

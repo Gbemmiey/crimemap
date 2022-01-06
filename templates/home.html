@@ -1,19 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Crime Map</title>
-    </head>
-    <body>
-        <h1>Crimes record</h1>
-        <form action="/add" method="POST">
-            <input type="text" name="userinput">
-            <input type="submit" value="submit">
-        </form>
+<html lang="en" xmlns:margin="http://www.w3.org/1999/xhtml">
+  <head>
+    <link rel="stylesheet" type="text/css"
+          href="{{url_for('static', filename='css/home.css')}}">
 
-        <a href="/clear">Clear</a>
-        {% for userinput in data%}
-            <p>{{userinput}}</p>
-        {% endfor%}
+    <title>Crime Map</title>
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js">
+    </script>
+
+    <script type="text/javascript">
+        var map;
+        var marker;
+
+        function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(-33.30578381949298, 26.523442268371582),
+          zoom: 15
+        };
+        map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+        google.maps.event.addListener(map, 'click',
+        function(event){
+            placeMarker(event.latLng);
+        });
+
+        placeCrimes({{crimes | safe}});
+      }
+
+      function placeCrimes(crimes){
+            for (i=0; i<crimes.length; i++){
+                crime = new google.maps.Marker({
+                    position: new google.maps.LatLng(crimes[i].latitude,
+                    crimes[i].longitude),
+                    map: map,
+                    title: crimes[i].date + "\n" +
+                        crimes[i].category + "\n" +
+                        crimes[i].description
+                }
+                );
+            }
+        }
+
+      function placeMarker(location){
+          if (marker){
+            marker.setPosition(location);
+          } else {
+            marker =  new google.maps.Marker({
+                position: location,
+                map: map
+            });
+          }
+          document.getElementById('latitude').value = location.lat();
+          document.getElementById('longitude').value = location.lng();
+      }
+     </script>
+
+  </head>
+    <body onload="initialize()">
+      <p>A map of recent criminal activity in the Grahamstown area.</p>
+
+      <div class="container">
+
+        <div id="map-canvas">
+        </div>
+
+        <div id="newCrimeForm">
+            <h3>Add a new crime</h3>
+            <form action="/submit_crime" method="post">
+
+              <label for="category"> Category</label>
+              <select name="category" id="category">
+                <option value="mugging">Mugging</option>
+                <option value="breaking">Breaking</option>
+                <option value="murder">Murder</option>
+              </select>
+
+              <label for="date">Date</label>
+              <input name="date" id="date" type="date">
+
+              <label for="latitude">Latitude</label>
+              <input name="latitude" id="latitude" type="text">
+
+              <label for="date">Longitude</label>
+              <input name="longitude" id="longitude" type="text">
+
+              <label for="description">Description</label>
+              <textarea name="description" id="description"
+                        placeholder="Brief but concise"></textarea>
+
+              <input type="submit" value="Submit">
+            </form>
+        </div>
+
+      </div>
     </body>
 </html>
