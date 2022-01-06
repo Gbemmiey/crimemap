@@ -1,6 +1,7 @@
 from dbhelper import DBHelper
 from flask import Flask
 from flask import render_template, request
+from json import dumps
 
 app = Flask(__name__)
 DB = DBHelper()
@@ -9,12 +10,11 @@ DB = DBHelper()
 @app.route('/')
 def home():
     try:
-        data = DB.get_all_inputs()
+        crimes = DB.get_all_inputs()
+        crimes = dumps(crimes, indent=4, sort_keys=True, default=str)
     except Exception as e:
         print(e)
-        data = None
-    # return render_template("home.html", data=data)
-    return render_template("home.html")
+    return render_template("home.html", crimes=crimes)
 
 
 @app.route("/submit_crime", methods=["POST"])
